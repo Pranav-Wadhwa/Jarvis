@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
   margin: 0;
@@ -38,9 +36,15 @@ body {
 }
 
 [data-state="open"].animate-overlayShow {
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: overlayShow 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-state="open"].animate-contentShow {
-  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Link styles */
+a {
+  text-decoration: none;
+  color: inherit;
 }
