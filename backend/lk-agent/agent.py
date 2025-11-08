@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
 from livekit import agents
-from livekit.agents import AgentSession, Agent, RoomInputOptions
+from livekit.agents import AgentSession, Agent, RoomInputOptions, inference
 from livekit.plugins import noise_cancellation, silero
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
@@ -17,11 +17,18 @@ class Assistant(Agent):
             You are curious, friendly, and have a sense of humor.""",
         )
 
-
 async def entrypoint(ctx: agents.JobContext):
+
+    llm = inference.LLM(
+        model="openai/gpt-oss-120b", 
+        provider="baseten"
+    )
+ 
+    stt = inference.STT(model="deepgram/nova-3")
+
     session = AgentSession(
-        stt="assemblyai/universal-streaming:en",
-        llm="openai/gpt-4.1-mini",
+        stt=stt,
+        llm=llm,
         tts="cartesia/sonic-3:9626c31c-bec5-4cca-baa8-f8ba9e84c8bc",
         vad=silero.VAD.load(),
         turn_detection=MultilingualModel(),
